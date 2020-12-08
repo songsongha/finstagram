@@ -2,18 +2,19 @@
     # reads the index.html file in app/views
  # File.read(File.join('app/views', 'index.html'))
 #end
-
+helpers do
+    def current_user
+        User.find_by(id: session[:user_id])
+    end
+end
 
 get '/' do
     
     @finstagram_posts = FinstagramPost.order(created_at: :desc)
+    
     erb(:index)
 end
 
-
-get '/login' do
-    "Login Page"
-end
  
 get '/signup' do
     @user = User.new #setup empty @user object
@@ -33,10 +34,38 @@ post '/signup' do
     
     if @user.save
     #return readable represenation of User object
-       "User #{username} saved!"
+       redirect to('/login')
 
     else
         erb(:signup)
     end
 
+end
+
+get '/login' do
+    
+    erb(:login) # render app/views/login.erb
+end
+
+post "/login" do
+    username = params[:username]
+    password = params[:password] #the key :password is refering to the name label in the form
+    
+    # find user by username
+    @user = User.find_by(username: username)
+    
+    if @user && @user.password == password
+        session[:user_id] = @user.id
+            redirect to('/')
+    else
+        @error_message = "Login failed."
+        erb(:login)
+    end
+
+end
+
+get '/logout' do
+    session[:user_id] = nil
+    redirect to('/')
+    "Logout successful"
 end
