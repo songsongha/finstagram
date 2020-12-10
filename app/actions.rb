@@ -69,3 +69,28 @@ get '/logout' do
     redirect to('/')
     "Logout successful"
 end
+
+
+get '/finstagram_posts/new' do
+    @finstagram_post = FinstagramPost.new
+    erb(:"finstagram_posts/new")
+end
+
+post '/finstagram_posts' do
+    photo_url = params[:photo_url]
+
+    #instantiate new FinstagramPost
+    @finstagram_post = FinstagramPost.new({ photo_url: photo_url, user_id: current_user.id })
+
+    #if @post validates, save
+    if @finstagram_post.save
+        redirect(to('/'))
+    else
+        erb(:"finstagram_posts/new")
+    end
+end
+
+get '/finstagram_posts/:id' do
+    @finstagram_post = FinstagramPost.find(params[:id])
+    erb(:"finstagram_posts/show")
+end
