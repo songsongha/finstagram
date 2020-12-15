@@ -1,0 +1,14 @@
+
+<form class="new-comment" action="/comments" method="POST">
+    <div class="form-group">
+        <input type="text" id="text" name="text" placeholder="Comment">
+    </div>
+    
+    <!--create an input element with a given value attribute without displaying it to the user; we just want to pass through the
+     finstagram_post_id behind the scenes so we know which finstgram post a comment is for -->
+    
+     <input type="hidden" id="finstagram_post_id" name="finstagram_post_id" value="<%= finstagram_post.id %>">
+    <div class="form-group">
+        <button class="button" type="submit">Submit</button>
+    </div>
+</form>
