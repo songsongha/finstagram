@@ -1,7 +1,8 @@
 header {
     background-color: #244751;
-    color: #E8FDFF;
+    color: #d8e5ee;
     font-family: 'Dancing Script', cursive;
+    font-weight: 700;
 }
 
 body {
@@ -29,5 +30,9 @@ a.photo{
 a.photo:hover{
     padding: 10px;
 
+}
+.login-info{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
 }
 
